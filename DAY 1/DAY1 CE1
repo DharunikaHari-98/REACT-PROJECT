@@ -1,1 +1,19 @@
+import React from "react";
+function alertMsg()
+{
+    alert("Message from developer");
+    console.log("Message to developer");
+}
 
+function DayApp()
+{
+    return(
+        <div>
+            <h1>Let we do the coding</h1>
+            <button onClick={alertMsg}>CE1</button>
+            
+
+        </div>
+    )
+}
+export default DayApp;
