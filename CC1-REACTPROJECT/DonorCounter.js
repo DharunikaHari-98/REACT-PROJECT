@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { BloodDonationContext } from './BloodDonationContext';
 
-function DonorCounter() {
-  const [count, setCount] = useState(0);
+const DonorCounter = () => {
+  const { donors } = useContext(BloodDonationContext); 
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCount(prevCount => prevCount + 1);
-    }, 3000);
-
-    return () => clearInterval(timer);
-  }, []);
+  const donorCount = donors ? donors.length : 0; 
 
   return (
     <div className="donor-counter">
       <h3>Donors Today</h3>
-      <p>{count}</p>
+      <p>{donorCount}</p> 
     </div>
   );
-}
+};
 
 export default DonorCounter;
