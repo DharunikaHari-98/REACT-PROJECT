@@ -6,7 +6,7 @@ function DonateBlood() {
     email: '',
     bloodType: '',
     age: '',
-    isAlcoholic: '', // New field for alcoholic status
+    isAlcoholic: '',
   });
 
   const [submissions, setSubmissions] = useState([]);
@@ -18,6 +18,14 @@ function DonateBlood() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+   
+    if (formData.isAlcoholic === 'Yes') {
+      window.alert('You are not eligible to donate blood.');
+    } else if (formData.isAlcoholic === 'No') {
+      window.alert('You are eligible to donate blood.');
+    }
+
     setSubmissions([...submissions, formData]); 
     setFormData({ name: '', email: '', bloodType: '', age: '', isAlcoholic: '' }); 
   };
@@ -56,7 +64,7 @@ function DonateBlood() {
           required
         />
 
-        <label htmlFor="age">Age:</label> {/* New field for age */}
+        <label htmlFor="age">Age:</label>
         <input
           type="number"
           id="age"
@@ -66,7 +74,7 @@ function DonateBlood() {
           required
         />
 
-        <label htmlFor="isAlcoholic">Are you alcoholic?</label> {/* New field for alcoholic status */}
+        <label htmlFor="isAlcoholic">Are you alcoholic?</label>
         <select
           id="isAlcoholic"
           name="isAlcoholic"
@@ -91,8 +99,8 @@ function DonateBlood() {
                 <p><strong>Name:</strong> {submission.name}</p>
                 <p><strong>Email:</strong> {submission.email}</p>
                 <p><strong>Blood Type:</strong> {submission.bloodType}</p>
-                <p><strong>Age:</strong> {submission.age}</p> {/* Display age */}
-                <p><strong>Alcoholic Status:</strong> {submission.isAlcoholic}</p> {/* Display alcoholic status */}
+                <p><strong>Age:</strong> {submission.age}</p>
+                <p><strong>Alcoholic Status:</strong> {submission.isAlcoholic}</p>
               </li>
             ))}
           </ul>
