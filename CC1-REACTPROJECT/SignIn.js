@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';  // Import Link here
+// src/SignIn.js
+import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';  
+import { BloodDonationContext } from './BloodDonationContext';
+import axios from 'axios';
 import './styles.css';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser } = useContext(BloodDonationContext); 
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Replace this with actual authentication logic
     if (email && password) {
-      // Navigate to home page after successful login
-      navigate('/home');
+      try {
+        const response = await axios.get(`http://localhost:5000/users?email=${email}&password=${password}`);
+        if (response.data.length > 0) {
+          setUser({ email }); 
+          navigate('/home');
+        } else {
+          alert('Invalid credentials. Please sign up.');
+        }
+      } catch (error) {
+        alert('Error logging in. Please try again.');
+      }
     } else {
       alert('Please fill out all fields.');
     }
@@ -50,4 +61,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignIn;
