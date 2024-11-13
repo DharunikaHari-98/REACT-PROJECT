@@ -1,60 +1,26 @@
+import React, { Component } from 'react';
 
-import React from 'react';
-import logo from './logo.svg';
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, errorMessage: '' };
+  }
 
-function FoodList() {
-  const foods = ['pasta', 'dhall', 'wheat', 'rice'];
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
 
-  const appStyle = {
-    textAlign: 'center',
-  };
+  componentDidCatch(error, info) {
+    this.setState({ errorMessage: error.toString() });
+    console.error("Error caught by ErrorBoundary:", error, info);
+  }
 
-  const appLogoStyle = {
-    height: '40vmin',
-    pointerEvents: 'none',
-    animation: 'App-logo-spin infinite 20s linear',
-  };
-
-  const appHeaderStyle = {
-    backgroundColor: '#282c34',
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 'calc(10px + 2vmin)',
-    color: 'white',
-  };
-
-  const appLinkStyle = {
-    color: '#61dafb',
-  };
-
-  const keyframesStyle = `
-    @keyframes App-logo-spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong: {this.state.errorMessage}</h1>;
     }
-  `;
-
-  return (
-    <div style={appStyle}>
-      <style>{keyframesStyle}</style>
-      <header style={appHeaderStyle}>
-        <img src={logo} style={appLogoStyle} alt="logo" />
-        <h2>Food List</h2>
-        <ul>
-          {foods.map((food, index) => (
-            <li key={index}>{food}</li>
-          ))}
-        </ul>
-      </header>
-    </div>
-  );
+    return this.props.children;
+  }
 }
 
-export default FoodList;
+export default ErrorBoundary;
