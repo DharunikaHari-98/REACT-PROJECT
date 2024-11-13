@@ -1,21 +1,24 @@
 
-
 import React from 'react';
-import { Container, Typography, Box } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Destinations from './pages/Destinations';
+import Contact from './pages/Contact';
 
-const Home = () => {
+function App() {
   return (
-    <Container>
-      <Box sx={{ textAlign: 'center', mt: 4 }}>
-        <Typography variant="h2" gutterBottom>
-          Welcome to Travel Explorer
-        </Typography>
-        <Typography variant="body1">
-          Discover amazing destinations around the world.
-        </Typography>
-      </Box>
-    </Container>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/destinations" element={<Destinations />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
-};
+}
 
-export default Home;
+export default App;
